@@ -68,7 +68,7 @@
  <tr><td>a = 1; //A1  <br>   x = b; //A2</td><td>b = 2; //B1  <br>    y = a; //B2 </td></tr>
  <tr><td colspan="2">初始状态：a = b = 0   <br/> 处理器允许执行后得到结果：x = y = 0</td></tr></table>
 假设处理器A和处理器B按程序的顺序并行执行内存访问，最终却可能得到x = y = 0的结果。具体的原因如下图所示：
-![内存访问图](https://raw.githubusercontent.com/wiki/zhangpeng181818/images/java-memory-model/14.jpg)
+![img](https://raw.githubusercontent.com/wiki/zhangpeng181818/images/java-memory-model/14.jpg)
 
 		这里处理器A和处理器B可以同时把共享变量写入自己的写缓冲区（A1，B1），然后从内存中读取另一个共享变量（A2，B2），最后才把自己写缓存区中保存的脏数据刷新到内存中（A3，B3）。当以这种时序执行时，程序就可以得到x = y = 0的结果。
 		从内存操作实际发生的顺序来看，直到处理器A执行A3来刷新自己的写缓存区，写操作A1才算真正执行了。虽然处理器A执行内存操作的顺序为：A1->A2，但内存操作实际发生的顺序却是：A2->A1。此时，处理器A的内存操作顺序被重排序了（处理器B的情况和处理器A一样，这里就不赘述了）。
