@@ -184,8 +184,7 @@ class VolatileBarrierExample {
 
 针对readAndWrite()方法，编译器在生成字节码时可以做如下的优化：
 
-
- ![img](https://raw.githubusercontent.com/wiki/zhangpeng181818/images/java-memory-model/28.jpg)
+ ![img](https://raw.githubusercontent.com/wiki/zhangpeng181818/images/java-memory-model/28.png)
 
 注意，最后的StoreLoad屏障不能省略。因为第二个volatile写之后，方法立即return。此时编译器可能无法准确断定后面是否会有volatile读或写，为了安全起见，编译器常常会在这里插入一个StoreLoad屏障。
 
